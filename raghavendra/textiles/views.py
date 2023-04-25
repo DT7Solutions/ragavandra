@@ -31,3 +31,7 @@ def createAccount(request):
            return HttpResponseRedirect('/')
        
     return render(request ,"uifiles/create-account.html")
+
+
+def password(request):
+     return render(request ,"uifiles/forgotpassword.html")

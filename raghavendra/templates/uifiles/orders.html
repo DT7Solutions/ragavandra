@@ -18,7 +18,7 @@
     
   <main>
     <div class="d-flex justify-content-end mt-5 mb-5 px-5">
-        <button class="btn btn-warning">New Order</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">New Order</button>
     </div>
     <div class="container">
     <table class="table table-hover px-5">
@@ -51,6 +51,63 @@
           </tbody>
       </table>
  </div>
+ 
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title  text-center" id="staticBackdropLabel">Book Your orders</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+         
+          <input type="text" class="form-control"  placeholder="Name"   id="exampleInput1">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="WhatsappNo" id="exampleInput2">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="ContactNo" id="exampleInput3">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="Address" id="exampleInput4">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="state Name" id="exampleInput5">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="City" id="exampleInput6">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="Courier" id="exampleInput7">
+        </div>
+       
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="State Name" id="exampleInput9">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="Postalcode" id="exampleInput10">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="No of items" id="exampleInput11">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="File" id="exampleInput12">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"   placeholder="Date" id="exampleInput13">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+     
+    </div>
+  </div>
+</div>
   </main>
 
    

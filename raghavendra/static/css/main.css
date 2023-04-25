@@ -461,4 +461,9 @@ iframe {
     opacity: 1;
   }
 }
+.wrap-login100{
+  display: flex!important;
+  justify-content: baseline!important;
+  align-items: center!important;
+}
 
