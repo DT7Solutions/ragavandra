@@ -39,7 +39,7 @@ class Orders(models.Model):
         ('pending', 'Pending'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
-        ('prduction', 'Prduction'),
+        ('production', 'Production'),
         ('complated', 'complited'),
     )
     OrderStatus = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
