@@ -1,0 +1,59 @@
+{% extends 'uifiles/base.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-light bg-dark">
+    <div class="container-fluid d-flex px-5">
+        <div>
+            <div class="navbar-brand" href="#">
+                <h3 class="text-light">Raghavendra Textiles</h3>
+            </div>
+        </div>
+      <div>
+        {% for portitem in userdata %}
+        <h3 class="text-light">{{portitem.FirstName}}</h3>
+        {% endfor %}
+      </div>
+    </div>
+  </nav>
+    
+  <main>
+    <div class="d-flex justify-content-end mt-5 mb-5 px-5">
+        <button class="btn btn-warning">New Order</button>
+    </div>
+    <div class="container">
+    <table class="table table-hover px-5">
+        <thead>
+            <tr>
+              <th scope="col">OrderID</th>
+              <th scope="col">Name</th>
+              <th scope="col">WhatsappNo</th>
+              <th scope="col">Address</th>
+              <th scope="col">Courier</th>
+              <th scope="col">No_Of_Items</th>
+              <th scope="col">OrderStatus</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in orders %}
+            <tr>
+              <th scope="row">{{item.OrderID}}</th>
+              <td>{{item.Name}}</td>
+              <td>{{item.WhatsappNo}}</td>
+              <td>{{item.Address}}</td>
+              <td>{{item.Courier}}</td>
+              <td>{{item.No_Of_Items}}</td>
+              <td>{{item.OrderStatus}}</td>
+              <td>{{item.Date}}</td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+      </table>
+ </div>
+  </main>
+
+   
+
+   
+{% endblock %}
