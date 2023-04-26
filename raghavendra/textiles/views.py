@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .models import RegisterUsers,Orders
+from django.conf import settings
 # Create your views here.
 def home(request):
     if request.method=='POST':
@@ -31,6 +32,23 @@ def createAccount(request):
            return HttpResponseRedirect('/')
        
     return render(request ,"uifiles/create-account.html")
+
+def orders(request):
+    name = request.POST.get('Name',"")
+    whatsapp_No = request.POST.get('WhatsappNo',"")
+    email = request.POST.get('Address',"")
+    state_Name = request.POST.get('state_Name',"")
+    city = request.POST.get('City',"")
+    courier = request.POST.get('Courier',"")
+    state = request.POST.get('State',"")
+    postalcode = request.POST.get('Postalcode',"")
+    email = request.POST.get('State',"")
+    state_Name = request.POST.get('Postalcode',"")
+    up_file = request.FILES['file']
+    upload_file = settings.MEDIA_URL[1:] + "//img//" + str(up_file.name)
+
+    oOrder_info = RegisterUsers()
+    oOrder_info.save()
 
 
 def password(request):
