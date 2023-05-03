@@ -2,18 +2,18 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .models import RegisterUsers,Orders
 from django.conf import settings
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import User, auth
+
 # Create your views here.
 def home(request):
     if request.method=='POST':
-        phone = request.POST.get('phone',"")
+        username = request.POST.get('username',"")
         password = request.POST.get('pass',"")
-        queryset = RegisterUsers.objects.all()
-        for fields in queryset:
-            if fields.Phone == int(phone) and fields.Password == password:
-                orders = Orders.objects.filter(UserID=fields.UserID)
-                userdata = RegisterUsers.objects.filter(UserID=fields.UserID)
-                return render(request, 'uifiles/orders.html', {'orders': orders ,'userdata':userdata})
-        
+        user = auth.authenticate(username=username,password=password)
+        if user is not None:
+            auth.login(request,user )
+            return HttpResponseRedirect('/orders/')
     return render(request ,"uifiles/home.html")
 
 def createAccount(request):
@@ -21,35 +21,39 @@ def createAccount(request):
         fname = request.POST.get('fname',"")
         lname = request.POST.get('lname',"")
         email = request.POST.get('email',"")
-        phone = request.POST.get('Phone',"")
+        username = request.POST.get('username',"")
         password = request.POST.get('password',"")
-        person_exists = RegisterUsers.objects.filter(Phone=phone).exists()
-        if person_exists:
-            return HttpResponseRedirect('/register/')
-        else:
-           oUser_info = RegisterUsers(FirstName=fname,LastName=lname,EmailID=email,Phone=phone,Password=password)
-           oUser_info.save()
-           return HttpResponseRedirect('/')
+        oUser_info = User.objects.create_user(username=username,password=password,first_name=fname,last_name=lname,email=email)
+        oUser_info.save()
+        return HttpResponseRedirect('/login/')
        
     return render(request ,"uifiles/create-account.html")
 
 def orders(request):
-    name = request.POST.get('Name',"")
-    whatsapp_No = request.POST.get('WhatsappNo',"")
-    email = request.POST.get('Address',"")
-    state_Name = request.POST.get('state_Name',"")
-    city = request.POST.get('City',"")
-    courier = request.POST.get('Courier',"")
-    state = request.POST.get('State',"")
-    postalcode = request.POST.get('Postalcode',"")
-    email = request.POST.get('State',"")
-    state_Name = request.POST.get('Postalcode',"")
-    up_file = request.FILES['file']
-    upload_file = settings.MEDIA_URL[1:] + "//img//" + str(up_file.name)
-
-    oOrder_info = RegisterUsers()
-    oOrder_info.save()
-
+    
+    if request.method=='POST':
+        name = request.POST.get('Name',"")
+        whatsapp_No = request.POST.get('WhatsappNo',"")
+        contact_no = request.POST.get('ContactNo',"")
+        address = request.POST.get('Address',"")
+        streetname = request.POST.get('streetname',"")
+        city = request.POST.get('City',"")
+        courier = request.POST.get('Courier',"")
+        state = request.POST.get('State',"")
+        postalcode = request.POST.get('Postalcode',"")
+        state = request.POST.get('State',"")
+        No_of_items = request.POST.get('No_of_items',"")
+        up_file = request.FILES['image_file']
+        upload_file = settings.MEDIA_URL[1:] + "//img//" + str(up_file.name)
+    
+        oOrder_info = Orders(Name=name,WhatsappNo=whatsapp_No,ContactNo=contact_no,Address=address, street_name=streetname,city=city,state=state,postal_code=postalcode,Courier=courier,No_Of_Items=No_of_items, file=up_file)
+        oOrder_info.save()
+        return HttpResponseRedirect('/orders/')
+    orders_list = Orders.objects.all() 
+    return render(request ,"uifiles/orders.html" ,{"orders_list":orders_list})
 
 def password(request):
      return render(request ,"uifiles/forgotpassword.html")
+
+def editprofile(request):
+    return render(request ,"uifiles/profile.html")

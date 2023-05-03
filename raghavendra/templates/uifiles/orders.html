@@ -4,19 +4,32 @@
 <nav class="navbar navbar-light bg-dark">
     <div class="container-fluid d-flex px-5">
         <div>
-            <div class="navbar-brand" href="#">
+            <div class="navbar-brand  animate__animated animate__fadeInLeft" href="#">
                 <h3 class="text-light">Raghavendra Textiles</h3>
             </div>
         </div>
-      <div>
-        {% for portitem in userdata %}
-        <h3 class="text-light">{{portitem.FirstName}}</h3>
-        {% endfor %}
+      <div class="profile-details animate__animated animate__fadeInRight animate__delay-1s d-flex justify-content-center align-items-center">
+        <div class="dropdown mx-2" >
+          <button class="btn btn-transparent border border-white  "  type="button" id="dropdownMenuButton" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+            <img src="{% static 'images/profile-icon.png' %}" class="profile-img" alt="IMG">
+          </button>
+          <div class="dropdown-menu shadow px-5  bg-white rounded animate__animated animate__zoomIn " aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/profile/">Edit Profile</a>
+            <a class="dropdown-item" href="">logout</a>
+           
+          </div>
+        </div>
+      
+        <h5 class="text-light" >{{ request.user }}</h5>
+       
+        
+       
       </div>
     </div>
   </nav>
-    
-  <main>
+   <!-- {% block container %}
+
+   {% endblock %} -->
     <div class="d-flex justify-content-end mt-5 mb-5 px-5">
         <button class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">New Order</button>
     </div>
@@ -31,11 +44,12 @@
               <th scope="col">Courier</th>
               <th scope="col">No_Of_Items</th>
               <th scope="col">OrderStatus</th>
+              <th scope="col">image</th>
               <th scope="col">Date</th>
             </tr>
           </thead>
           <tbody>
-            {% for item in orders %}
+            {% for item in orders_list %}
             <tr>
               <th scope="row">{{item.OrderID}}</th>
               <td>{{item.Name}}</td>
@@ -44,6 +58,7 @@
               <td>{{item.Courier}}</td>
               <td>{{item.No_Of_Items}}</td>
               <td>{{item.OrderStatus}}</td>
+              <td><img src="/media/{{item.file}}" alt="" height="100" width="100"></td>
               <td>{{item.Date}}</td>
             </tr>
             {% endfor %}
@@ -63,8 +78,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      {% for portitem in userdata %}
-        <form method="post">
+        <form method="POST" enctype="multipart/form-data" autocomplete="off">
           {% csrf_token %}
           <div class="modal-body">
             <div class="form-group">
@@ -74,40 +88,45 @@
               <input type="text" class="form-control" id="WhatsappNo" name="WhatsappNo"  placeholder="WhatsappNo" >
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.Phone}} id="ContactNo" name="ContactNo"  placeholder="ContactNo" >
+              <input type="text" class="form-control" value='' id="ContactNo" name="ContactNo"  placeholder="ContactNo" >
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.Address}}   id="Address" name="Address"   placeholder="Address">
+              <input type="text" class="form-control" value=''   id="Address" name="Address"   placeholder="Address">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.City}} id="City" name="City"  placeholder="City" >
+              <input type="text" class="form-control" value='' id="streetname" name="streetname"  placeholder="streetname" >
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.State}}   id="State" name="State" placeholder="State Name" >
+              <input type="text" class="form-control" value='' id="City" name="City"  placeholder="City" >
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.Zip}} id="Postalcode" name="Postalcode"  placeholder="Postalcode" >
+              <input type="text" class="form-control" value=''   id="State" name="State" placeholder="State Name" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="Postalcode" name="Postalcode"  placeholder="Postalcode" >
             </div>
             <div class="form-group">
               <input type="text" class="form-control"   id="Courier" name="Courier" placeholder="Courier">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control"   id="streetname" name="streetname" placeholder="Street Name">
             </div>
         
             <div class="form-group">
               <input type="text" class="form-control"  id="No_of_items" name="No_of_items"   placeholder="No of items">
             </div>
             <div class="form-group">
-              <input type="file" class="form-control"  name="file"  id="file" accept=".jpg,.jpeg,.pdf,.png"   placeholder="upload image" >
+              <input name="image_file" type="file" id="image_file"  class="form-control"   accept=".jpg,.jpeg,.pdf,.png"   placeholder="upload image" >
             </div>
         
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
-      {% endfor %}
      
     </div>
   </div>
 </div>
-  </main>
+</main>
 
    
 

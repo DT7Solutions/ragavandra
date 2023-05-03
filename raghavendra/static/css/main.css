@@ -467,3 +467,7 @@ iframe {
   align-items: center!important;
 }
 
+.profile-details{
+  display: flex;
+  
+}
