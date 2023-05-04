@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+LOGIN_REDIRECT_URL = "/"
 import os
 from pathlib import Path
 
@@ -119,6 +120,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [STATIC_DIR,]
+
 # if DEBUG:
 #     STATICFILES_DIRS = [STATIC_DIR,]
 # else:

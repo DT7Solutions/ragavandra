@@ -1,9 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .models import RegisterUsers,Orders
+from .models import Orders
 from django.conf import settings
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User, auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -29,6 +30,7 @@ def createAccount(request):
        
     return render(request ,"uifiles/create-account.html")
 
+@login_required
 def orders(request):
     
     if request.method=='POST':
@@ -45,11 +47,11 @@ def orders(request):
         No_of_items = request.POST.get('No_of_items',"")
         up_file = request.FILES['image_file']
         upload_file = settings.MEDIA_URL[1:] + "//img//" + str(up_file.name)
-    
-        oOrder_info = Orders(Name=name,WhatsappNo=whatsapp_No,ContactNo=contact_no,Address=address, street_name=streetname,city=city,state=state,postal_code=postalcode,Courier=courier,No_Of_Items=No_of_items, file=up_file)
+        user_item = Orders.objects.filter(user=request.user)
+        oOrder_info = Orders(Name=name,WhatsappNo=whatsapp_No,ContactNo=contact_no,Address=address, street_name=streetname,city=city,state=state,postal_code=postalcode,Courier=courier,No_Of_Items=No_of_items, file=up_file,user=request.user)
         oOrder_info.save()
         return HttpResponseRedirect('/orders/')
-    orders_list = Orders.objects.all() 
+    orders_list = Orders.objects.filter(user=request.user)
     return render(request ,"uifiles/orders.html" ,{"orders_list":orders_list})
 
 def password(request):
@@ -57,3 +59,6 @@ def password(request):
 
 def editprofile(request):
     return render(request ,"uifiles/profile.html")
+
+def userlogout(request):
+    return render(request ,"uifiles/logout.html")

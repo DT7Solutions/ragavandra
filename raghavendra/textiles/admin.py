@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RegisterUsers,Orders
+from .models import RegisterUsers, Orders
 
 class AdminRegister(admin.ModelAdmin):
     list_display=('UserID','FirstName','LastName','EmailID','Phone','Password')

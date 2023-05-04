@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 from django.utils import timezone
 # Create your models here.
@@ -44,6 +44,7 @@ class Orders(models.Model):
     )
     OrderStatus = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     Date = models.DateTimeField(default=datetime.now())
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
    
    
     def __int__(self):
