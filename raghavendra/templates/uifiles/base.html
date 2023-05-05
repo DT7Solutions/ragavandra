@@ -74,6 +74,15 @@
             </script>
     <!--===============================================================================================-->
         <script src="{% static 'js/main.js' %}"></script>
+        <script>
+          function SelectedOption() {
+            var selectElement = document.getElementById('courier');
+            var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+            if (selectedOption) {
+              window.location.href = selectedOption;
+            }
+          }
+          </script>
     
 </body>
 </html>

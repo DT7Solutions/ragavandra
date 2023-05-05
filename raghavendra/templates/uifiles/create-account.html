@@ -14,6 +14,12 @@
                 <span class="login100-form-title">
                     Create Account
                 </span>
+                {% if messages %}
+                {% for mes in messages %}
+                <span class="text-danger">{{ mes }}</span>
+                {% endfor %}
+             {% endif  %}
+
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid firstname is required: firstname">
                     <input class="input100" type="text" name="fname" id="fname" placeholder="Firstname">
