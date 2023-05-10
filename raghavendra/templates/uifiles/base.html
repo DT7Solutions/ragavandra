@@ -72,6 +72,45 @@
               }, false);
             })();
             </script>
+            <script>
+              function enableSubmitButton() {
+    var numItems = document.getElementById("No_of_items").value;
+    var submitButton = document.getElementById("submit-button");
+    if (numItems > 0) {
+        submitButton.removeAttribute("disabled");
+    } else {
+        submitButton.setAttribute("disabled", "");
+    }
+}
+
+              function updateFileInputs() {
+                var numItems = document.getElementById("No_of_items").value;
+                var imageFields = document.getElementById("image_file");
+                imageFields.innerHTML = "";
+              
+                for (var i = 1; i <= numItems; i++) {
+                  var label = document.createElement("label");
+                  label.setAttribute("for", "image_file_" + i);
+                  label.innerHTML = "Image " + i;
+              
+                  var input = document.createElement("input");
+                  input.setAttribute("name", "image_file_" + i);
+                  input.setAttribute("type", "file");
+                  input.setAttribute("id", "image_file_" + i);
+                  input.setAttribute("class", "form-control");
+                  input.setAttribute("accept", ".jpg,.jpeg,.pdf,.png");
+              
+                  var div = document.createElement("div");
+                  div.setAttribute("class", "form-group");
+                  div.appendChild(label);
+                  div.appendChild(input);
+              
+                  imageFields.appendChild(div);
+                }
+              }
+              </script>
+              
+              
     <!--===============================================================================================-->
         <script src="{% static 'js/main.js' %}"></script>
         <script>
