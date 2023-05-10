@@ -4,6 +4,7 @@ from .models import Orders
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
+import json
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User, auth
@@ -139,10 +140,6 @@ def whatswebhook(request):
             return HttpResponseRedirect('error',status=403)
     
 
-    elif request.method == 'POST':
-        # Implement your POST request handler here
-        pass
-
-    # Handle other types of requests here
-    else:
-        return HttpResponseRedirect(status=405)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        return HttpResponseRedirect ('success' ,status=200)
