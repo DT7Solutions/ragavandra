@@ -5,6 +5,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
+from twilio.rest import Client
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User, auth
@@ -99,20 +100,20 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 # @login_required
-def send_whatsapp_message(whatsapp_no,message):
-    whatsapp_no = "+91"+ str(whatsapp_no)
-    message = message
-    headers = {"Authorization": settings.WHATSUP_TOKEN}
-    payload = {
-            "messaging_product": "whatsapp",
-            "recipient_type": "individual",
-            "to": whatsapp_no,
-            "type": "text",
-            "text": {"body": message}
-        }
-    response = requests.post(settings.WHATSUP_URL, headers=headers, json=payload)
-    ans = response.json()
-    return  "success"
+# def send_whatsapp_message(whatsapp_no,message):
+#     whatsapp_no = "+91"+ str(whatsapp_no)
+#     message = message
+#     headers = {"Authorization": settings.WHATSUP_TOKEN}
+#     payload = {
+#             "messaging_product": "whatsapp",
+#             "recipient_type": "individual",
+#             "to": whatsapp_no,
+#             "type": "text",
+#             "text": {"body": message}
+#         }
+#     response = requests.post(settings.WHATSUP_URL, headers=headers, json=payload)
+#     ans = response.json()
+#     return  "success"
     
  
 
@@ -143,3 +144,20 @@ def whatswebhook(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         return HttpResponseRedirect ('success' ,status=200)
+    
+
+def send_whatsapp_message(whatsapp_no,message):
+     
+     account_sid = 'ACfc60d1654dbf6d92b0eb377745fa65da'
+     auth_token = '23b1dacf7c707bad168e259044b0fb3c'
+     client = Client(account_sid, auth_token)
+
+     message = client.messages.create(
+     from_='whatsapp:+14155238886',
+     body=message,
+     to="whatsapp:+919154224347"
+
+     ) 
+    
+     return  "success"
+
