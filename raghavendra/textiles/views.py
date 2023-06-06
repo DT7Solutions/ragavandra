@@ -99,21 +99,21 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
 
-# @login_required
-# def send_whatsapp_message(whatsapp_no,message):
-#     whatsapp_no = "+91"+ str(whatsapp_no)
-#     message = message
-#     headers = {"Authorization": settings.WHATSUP_TOKEN}
-#     payload = {
-#             "messaging_product": "whatsapp",
-#             "recipient_type": "individual",
-#             "to": whatsapp_no,
-#             "type": "text",
-#             "text": {"body": message}
-#         }
-#     response = requests.post(settings.WHATSUP_URL, headers=headers, json=payload)
-#     ans = response.json()
-#     return  "success"
+
+def send_whatsapp_message(whatsapp_no,message):
+    whatsapp_no = "+91"+ str(whatsapp_no)
+    message = message
+    headers = {"Authorization": settings.WHATSUP_TOKEN}
+    payload = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": whatsapp_no,
+            "type": "text",
+            "text": {"body": message}
+        }
+    response = requests.post(settings.WHATSUP_URL, headers=headers, json=payload)
+    ans = response.json()
+    return  "success"
     
  
 
@@ -127,18 +127,18 @@ def logout(request):
 #              }
 #     response = requests.post(settings.WHATS_URL,headers=headers,json=payload)
 #     ans = response.json()
-@csrf_exempt
-def whatswebhook(request):
-    if request.method == 'GET':
-        VERFIY_TOKEN = "8f08d35c-d4a3-4ce0-bec8-db786e9a100f"
-        mode = request.GET['hub.mode']
-        token = request.GET['hub.verify_token']
-        challenge = request.GET['hub.challenge']
+# @csrf_exempt
+# def whatswebhook(request):
+#     if request.method == 'GET':
+#         VERFIY_TOKEN = "8f08d35c-d4a3-4ce0-bec8-db786e9a100f"
+#         mode = request.GET['hub.mode']
+#         token = request.GET['hub.verify_token']
+#         challenge = request.GET['hub.challenge']
 
-        if mode == 'subscribe' and token == VERFIY_TOKEN:
-            return HttpResponseRedirect(challenge, status =200)
-        else:
-            return HttpResponseRedirect('error',status=403)
+#         if mode == 'subscribe' and token == VERFIY_TOKEN:
+#             return HttpResponseRedirect(challenge, status =200)
+#         else:
+#             return HttpResponseRedirect('error',status=403)
     
 
     if request.method == 'POST':
@@ -146,18 +146,18 @@ def whatswebhook(request):
         return HttpResponseRedirect ('success' ,status=200)
     
 
-def send_whatsapp_message(whatsapp_no,message):
+# def send_whatsapp_message(whatsapp_no,message):
      
-     account_sid = 'ACfc60d1654dbf6d92b0eb377745fa65da'
-     auth_token = '23b1dacf7c707bad168e259044b0fb3c'
-     client = Client(account_sid, auth_token)
+#      account_sid = 'ACfc60d1654dbf6d92b0eb377745fa65da'
+#      auth_token = '23b1dacf7c707bad168e259044b0fb3c'
+#      client = Client(account_sid, auth_token)
 
-     message = client.messages.create(
-     from_='whatsapp:+14155238886',
-     body=message,
-     to="whatsapp:+919154224347"
+#      message = client.messages.create(
+#      from_='whatsapp:+14155238886',
+#      body=message,
+#      to="whatsapp:+919154224347"
 
-     ) 
+#      ) 
     
-     return  "success"
+#      return  "success"
 
