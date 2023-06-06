@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+LOGIN_REDIRECT_URL = "/"
 import os
 from pathlib import Path
 
@@ -117,17 +118,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = '/media/'
-STATICFILES_DIRS = [STATIC_DIR,]
-# if DEBUG:
-#     STATICFILES_DIRS = [STATIC_DIR,]
-# else:
-#     STATIC_ROOT = os.path.join(BASE_DIR,'static')
+MEDIA_URL = 'media/'
+# STATICFILES_DIRS = [STATIC_DIR,]
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if DEBUG:
+    STATICFILES_DIRS = [STATIC_DIR,]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+WHATSUP_URL = 'https://graph.facebook.com/v16.0/116710078082689/messages'  
+WHATSUP_TOKEN = 'Bearer EAAMpqzCgBfkBAMuFSSw3sr1ZBXoQHH3ZAWTtlf1z9Ler1W7ZBTAExJrUKbR6uBKlyATkkzigADsaSa7ZAQTVPQp0rtr3zIbThsUGN8poEfD3PEEwhHyolyPBg9RdHgPyPgCbazjA1x0eXBbEzBadI9RZA6ke8yloZC1kZBhcyJew2iDFpHqz8ntoO7xV6R8Yan8lO6mH0pgDWWaz25B9ZBIZAlzEjpZAPPEAUZD'

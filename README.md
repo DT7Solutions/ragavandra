@@ -40,3 +40,8 @@ python manage.py runserver
 <!-- #admin details -->
 <!-- username:raghavendra
 password: 123456 -->
+
+<!-- url:-4a6a2ee7-4431-4e22-9913-73930326f7f9 -->
+ http://127.0.0.1:8000/4a6a2ee7-4431-4e22-9913-73930326f7f9 :- call back url 
+ 8f08d35c-d4a3-4ce0-bec8-db786e9a100f :- token 
+ new token:-:	EAAMpqzCgBfkBAAvlYETG8EbTlvL0bEYqEf8ce28MZAy7mkMTai5j5NEhosOXuST91i8l36OQ8ZA86unsV6wt2PpLpsHr9m9HaZCtv0QyWl5bcNZBPUb6yTGnIFvJTJiFAtFUdNYDUdTTh226IRdFeTZB2sOIU6fqf3lBEEoZBEzZBJrgqdb6gBF

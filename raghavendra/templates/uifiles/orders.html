@@ -1,26 +1,255 @@
 {% extends 'uifiles/base.html' %}
 {% load static %}
 {% block content %}
-<nav class="navbar navbar-light bg-dark">
-    <div class="container-fluid d-flex px-5">
-        <div>
-            <div class="navbar-brand" href="#">
-                <h3 class="text-light">Raghavendra Textiles</h3>
-            </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid px-2 px-md-4">
+        <div class="navbar-brand">
+            <h3 class="text-light">Raghavendra Textiles</h3>
         </div>
-      <div>
-        {% for portitem in userdata %}
-        <h3 class="text-light">{{portitem.FirstName}}</h3>
-        {% endfor %}
-      </div>
+        <div class="d-flex align-items-center">
+            <div class="dropdown mr-3">
+                <button class="btn btn-transparent text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'images/profile-icon.png' %}" class="profile-img" alt="IMG">
+                </button>
+                <div class="dropdown-menu shadow bg-white rounded animate__animated animate__zoomIn" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/profile/">Edit Profile</a>
+                    <a class="dropdown-item" href="/logout/">Logout</a>
+                </div>
+            </div>
+            <h5 class="text-light">{{ request.user }}</h5>
+        </div>
     </div>
-  </nav>
+</nav>
+
+
+
+
+
+
+
+
+   
+   <div class="container d-flex" style="display: flex;justify-content: space-between;align-items: center;">
     
-  <main>
+    <diV>
+
+    <label for="courier" class="mx-2">Select type of courier:</label>
+    <select name="courier" id="courier" class="mx-2">
+      <option value="" selected> -- select courier -- </a></option>
+      <option value="https://www.dtdc.in/tracking.asp">dtdtc</a></option>
+      <option  value="https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx">India post</option>
+      
+    </select>
+    <button class="btn btn-primary btn-sm" onclick="SelectedOption()">Track your order</button>
+   
+  </diV>
     <div class="d-flex justify-content-end mt-5 mb-5 px-5">
         <button class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">New Order</button>
     </div>
-    <div class="container">
+    
+  </div>
+
+   
+ <div class="container-fluid">
+  <div class="table-responsive">
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                  <th scope="col">OrderID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">WhatsappNo</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Courier</th>
+                  <th scope="col">No_Of_Items</th>
+                  <th scope="col">OrderStatus</th>
+                  <th scope="col">TrackingId</th>
+                  <th scope="col">image</th>
+                  <th scope="col">Date</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for item in orders_list %}
+              <tr>
+                  <th scope="row">{{ item.OrderID }}</th>
+                  <td>{{ item.Name }}</td>
+                  <td>{{ item.WhatsappNo }}</td>
+                  <td>{{ item.Address }}</td>
+                  <td>{{ item.Courier }}</td>
+                  <td>{{ item.No_Of_Items }}</td>
+                  <td>{{ item.OrderStatus }}</td>
+                  <td>{{item.TrackingId}}</td>
+                  <td><img src="/media/{{item.file}}" alt="" height="100" width="100"></td>
+                  <td>{{item.Date}}</td>
+                </tr>
+                {% endfor %}
+                   
+          </tbody>
+        </table>
+   </div> 
+
+
+
+
+
+Regenerate response
+ 
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title  text-center" id="staticBackdropLabel">Book Your orders</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       
+      <form method="POST" enctype="multipart/form-data" autocomplete="off">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="text" class="form-control" id="Name" name="Name" requiured placeholder="Name" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="WhatsappNo" name="WhatsappNo" required   placeholder="WhatsappNo" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="ContactNo" name="ContactNo" requiured placeholder="ContactNo" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value=''   id="Address" name="Address"   placeholder="Address">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="streetname" name="streetname"  placeholder="Street Name" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="City" name="City"  placeholder="City" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value=''   id="State" name="State" placeholder="State Name" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="Postalcode" name="Postalcode"  placeholder="Postalcode" >
+            </div>
+            <div class="form-group">
+              
+              <select class="custom-select"  name="Courier"  id="Courier">
+                <option selected>Choose. type Courier</option>
+                <option value="Dtdtc">ddtc</option>
+                <option value="India post">India Post</option>
+                
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control"   id="TransactionNo" name="TransactionNo" placeholder="PhonePay/GooglePay UTRNo">
+            </div>
+        
+            <div class="form-group">
+              <input type="text" class="form-control"  id="No_of_items" name="No_of_items"   placeholder="No of items" onkeyup="updateFileInputs()">
+            </div>
+            <div class="form-group">
+              <input name="image_file" type="file" id="image_file"  class="form-control"   accept=".jpg,.jpeg,.pdf,.png"   placeholder="upload image" >
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      
+
+    </div>
+  </div>
+</div>
+</main>
+
+   
+
+   
+{% endblock %}
+ <!-- <form method="POST" enctype="multipart/form-data" autocomplete="off">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="text" class="form-control" id="Name" name="Name" requiured placeholder="Name" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="WhatsappNo" name="WhatsappNo" required   placeholder="WhatsappNo" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="ContactNo" name="ContactNo" requiured placeholder="ContactNo" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value=''   id="Address" name="Address"   placeholder="Address">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="streetname" name="streetname"  placeholder="Street Name" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="City" name="City"  placeholder="City" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value=''   id="State" name="State" placeholder="State Name" >
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" value='' id="Postalcode" name="Postalcode"  placeholder="Postalcode" >
+            </div>
+            <div class="form-group">
+              
+              <select class="custom-select"  name="Courier"  id="Courier">
+                <option selected>Choose. type Courier</option>
+                <option value="Dtdtc">ddtc</option>
+                <option value="India post">India Post</option>
+                
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control"   id="TransactionNo" name="TransactionNo" placeholder="PhonePay/GooglePay UTRNo">
+            </div>
+        
+            <div class="form-group">
+              <input type="text" class="form-control"  id="No_of_items" name="No_of_items"   placeholder="No of items" onkeyup="updateFileInputs()">
+            </div>
+            <div class="form-group">
+              <input name="image_file" type="file" id="image_file"  class="form-control"   accept=".jpg,.jpeg,.pdf,.png"   placeholder="upload image" >
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      -->
+
+
+
+      <!-- <nav class="navbar navbar-light bg-dark">
+    <div class="container-fluid d-flex px-5">
+        <div>
+            <div class="navbar-brand  animate__animated animate__fadeInLeft" href="#">
+                <h3 class="text-light">Raghavendra Textiles</h3>
+            </div>
+        </div>
+      <div class="profile-details animate__animated animate__fadeInRight animate__delay-1s d-flex justify-content-center align-items-center">
+        <div class="dropdown mx-2" >
+          <button class="btn btn-transparent   "  type="button" id="dropdownMenuButton" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+            <img src="{% static 'images/profile-icon.png' %}" class="profile-img" alt="IMG">
+          </button>
+          <div class="dropdown-menu shadow px-5  bg-white rounded animate__animated animate__zoomIn " aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/profile/">Edit Profile</a>
+         
+            <a class="dropdown-item" href="/logout/">logout</a>
+           
+          </div>
+        </div>
+      
+        <h5 class="text-light" >{{ request.user }}</h5>
+       
+        
+       
+      </div>
+    </div>
+  </nav> -->
+
+   <!-- <div class="container">
     <table class="table table-hover px-5">
         <thead>
             <tr>
@@ -31,11 +260,13 @@
               <th scope="col">Courier</th>
               <th scope="col">No_Of_Items</th>
               <th scope="col">OrderStatus</th>
+              <th scope="col">TrackingId</th>
+              <th scope="col">image</th>
               <th scope="col">Date</th>
             </tr>
           </thead>
           <tbody>
-            {% for item in orders %}
+            {% for item in orders_list %}
             <tr>
               <th scope="row">{{item.OrderID}}</th>
               <td>{{item.Name}}</td>
@@ -44,72 +275,12 @@
               <td>{{item.Courier}}</td>
               <td>{{item.No_Of_Items}}</td>
               <td>{{item.OrderStatus}}</td>
+              <td>{{item.TrackingId}}</td>
+              <td><img src="/media/{{item.file}}" alt="" height="100" width="100"></td>
               <td>{{item.Date}}</td>
             </tr>
             {% endfor %}
             
           </tbody>
       </table>
- </div>
- 
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title  text-center" id="staticBackdropLabel">Book Your orders</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% for portitem in userdata %}
-        <form method="post">
-          {% csrf_token %}
-          <div class="modal-body">
-            <div class="form-group">
-              <input type="text" class="form-control" id="Name" name="Name"  placeholder="Name" >
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="WhatsappNo" name="WhatsappNo"  placeholder="WhatsappNo" >
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.Phone}} id="ContactNo" name="ContactNo"  placeholder="ContactNo" >
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.Address}}   id="Address" name="Address"   placeholder="Address">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.City}} id="City" name="City"  placeholder="City" >
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.State}}   id="State" name="State" placeholder="State Name" >
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" value={{portitem.Zip}} id="Postalcode" name="Postalcode"  placeholder="Postalcode" >
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control"   id="Courier" name="Courier" placeholder="Courier">
-            </div>
-        
-            <div class="form-group">
-              <input type="text" class="form-control"  id="No_of_items" name="No_of_items"   placeholder="No of items">
-            </div>
-            <div class="form-group">
-              <input type="file" class="form-control"  name="file"  id="file" accept=".jpg,.jpeg,.pdf,.png"   placeholder="upload image" >
-            </div>
-        
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      {% endfor %}
-     
-    </div>
-  </div>
-</div>
-  </main>
-
-   
-
-   
-{% endblock %}
+ </div> -->
