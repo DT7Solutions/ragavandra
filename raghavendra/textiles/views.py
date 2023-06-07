@@ -47,7 +47,7 @@ def createAccount(request):
                
 @login_required
 def orders(request):
-    
+    tracking_id = ''
     if request.method=='POST':
         name = request.POST.get('Name',"")
         whatsapp_No = request.POST.get('WhatsappNo',"")
@@ -61,16 +61,31 @@ def orders(request):
         state = request.POST.get('State',"")
         Transactionid  = request.POST.get('TransactionNo',"")
         No_of_items = request.POST.get('No_of_items',"")
-        up_file = request.FILES['image_file']
-        upload_file = settings.MEDIA_URL[1:] + "//img//" + str(up_file.name)
-        user_item = Orders.objects.filter(user=request.user)
-        oOrder_info = Orders(Name=name,WhatsappNo=whatsapp_No,ContactNo=contact_no,Address=address, street_name=streetname,city=city,state=state,postal_code=postalcode,Courier=courier,TransactionId=Transactionid,No_Of_Items=No_of_items, file=up_file,user=request.user)
-        oOrder_info.save()
-        message = f'welcome {request.user} thank for order raghavendra textiles '
+        tracking_id = Transactionid
+        # up_file = request.FILES['image_file']
+        # upload_file = settings.MEDIA_URL[1:] + "//img//" + str(up_file.name)
+        for item in range(int(No_of_items)):
+            size =  "size"+str(item)
+            color = "item_Color"+str(item) 
+            image = "image_file"+str(item)
+            Color = request.POST.get(color,"")
+            Size = request.POST.get(size,"")
+            up_file = request.FILES[image]
+            upload_file = settings.MEDIA_URL[1:] + "//img//" + str(up_file.name)
+            
+            user_item = Orders.objects.filter(user=request.user)
+            oOrder_info = Orders(Name=name,WhatsappNo=whatsapp_No,ContactNo=contact_no,Address=address, street_name=streetname,city=city,state=state,postal_code=postalcode,Courier=courier,TransactionId=Transactionid,No_Of_Items=No_of_items,item_color=Color, item_size=Size, file=up_file,user=request.user)
+            oOrder_info.save()
+            message = f'welcome {request.user} thank for order raghavendra textiles '
         send_whatsapp_message(message=message,whatsapp_no=whatsapp_No)
         return HttpResponseRedirect('/orders/')
-    orders_list = Orders.objects.filter(user=request.user)
-    return render(request ,"uifiles/orders.html" ,{"orders_list":orders_list})
+    unique_orders = []
+    orders_list = Orders.objects.filter(user=request.user).values_list('TransactionId', flat=True).distinct()
+    for transaction_id in orders_list:
+        order = Orders.objects.filter(user=request.user, TransactionId=transaction_id).first()
+        unique_orders.append(order)
+    view_orders_list = Orders.objects.all()
+    return render(request ,"uifiles/orders.html" ,{"orders_list":unique_orders,"view_orders_list":view_orders_list})
 
 
 def Updatepassword(request):

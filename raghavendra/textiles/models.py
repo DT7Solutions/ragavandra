@@ -35,6 +35,9 @@ class Orders(models.Model):
     TransactionId = models.CharField(max_length=25,default=0,null=True, blank=True)
     TrackingId = models.CharField(max_length=10,default=0,null=True, blank=True)
     No_Of_Items = models.IntegerField(null=True, blank=True)
+    item_color = models.CharField(max_length=10,null=True, blank=True)
+    item_size = models.CharField(max_length=10,null=True, blank=True)
+    
     file = models.FileField()
     STATUS_CHOICES = (
         ('Pending', 'Pending'),

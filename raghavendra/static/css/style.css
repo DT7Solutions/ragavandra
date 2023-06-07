@@ -1,0 +1,9 @@
+#fieldsContainer input{
+   border: 1px solid #cfd1d3;
+}
+#fieldsContainer {
+    margin-left: 15px !important;
+}
+#fieldsContainer input[type="file"] {
+    border: none !important;
+}
