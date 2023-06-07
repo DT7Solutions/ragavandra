@@ -37,8 +37,8 @@
     <label for="courier" class="mx-2">Select type of courier:</label>
     <select name="courier" id="courier" class="mx-2">
       <option value="" selected> -- select courier -- </a></option>
-      <option value="https://www.dtdc.in/tracking.asp">dtdtc</a></option>
-      <option  value="https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx">India post</option>
+      <option value="https://www.dtdc.in/tracking.asp">DTDC</a></option>
+      <option  value="https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx">INDIA POST</option>
       
     </select>
     <button class="btn btn-primary btn-sm" onclick="SelectedOption()">Track your order</button>
@@ -180,8 +180,8 @@
             <div class="form-group col-sm-12 col-lg-4">
               <select class="custom-select"  name="Courier"  id="Courier">
                 <option selected>Choose. type Courier</option>
-                <option value="Dtdtc">ddtc</option>
-                <option value="India post">India Post</option>
+                <option value="Dtdtc">DTDC</option>
+                <option value="India post">INDIA POST</option>
                 
               </select>
             </div>
@@ -222,35 +222,45 @@
   
       var sizeLabel = document.createElement('label');
       sizeLabel.innerHTML = 'Size:';
+      sizeLabel.className ="size-label"
       fieldGroup.appendChild(sizeLabel);
   
-      var sizeInput = document.createElement('input');
+      var sizeInput = document.createElement('select');
       sizeInput.type = 'text';
       sizeInput.id = 'size'+i;
       sizeInput.name = 'size'+i;
-      sizeInput.class = 'col-sm-12 col-lg-4';
+      sizeInput.class = 'form-group col-sm-12 col-lg-4 size-select form-control';
+      var sizes = ['S', 'M','L', 'XL', 'XXL', 'XXXL'];
+      for (var j = 0; j < sizes.length; j++) {
+        var option = document.createElement('option');
+        option.value = sizes[j];
+        option.text = sizes[j];
+        sizeInput.appendChild(option);
+      }
       fieldGroup.appendChild(sizeInput);
   
       var colorLabel = document.createElement('label');
       colorLabel.innerHTML = 'Color:';
+      colorLabel.className ="coor-label"
       fieldGroup.appendChild(colorLabel);
   
       var colorInput = document.createElement('input');
       colorInput.type = 'text';
       colorInput.id = 'item_Color'+i;
       colorInput.name = 'item_Color'+i;
-      colorInput.class = 'col-sm-12 col-lg-4';
+      colorInput.className  = 'col-sm-12 col-lg-4 item-color';
       fieldGroup.appendChild(colorInput);
   
       var imageLabel = document.createElement('label');
       imageLabel.innerHTML = 'Image:';
+      imageLabel.className ="size-label"
       fieldGroup.appendChild(imageLabel);
   
       var imageInput = document.createElement('input');
       imageInput.type = 'file';
       imageInput.id = 'image_file'+i;
       imageInput.name = 'image_file'+i;
-      imageInput.class = 'custome-file';
+      imageInput.className  = 'form-group col-sm-12 col-lg-4 custome-file';
       fieldGroup.appendChild(imageInput);
   
       fieldsContainer.appendChild(fieldGroup);

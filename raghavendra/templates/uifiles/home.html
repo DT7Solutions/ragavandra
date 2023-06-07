@@ -8,7 +8,7 @@
                 <img src="{% static 'images/img.png' %}" alt="IMG">
             </div>
 
-            <form class="login100-form validate-form" method="post">
+            <form class="login100-form validate-form" method="post" autocomplete="off">
                 {% csrf_token %}
                 <span class="login100-form-title">
                     Customer Login 
