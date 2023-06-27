@@ -6,7 +6,7 @@ class AdminRegister(admin.ModelAdmin):
 
 class AdminOrder(admin.ModelAdmin):
     list_display=('OrderID','Name','WhatsappNo','ContactNo','Address','OrderStatus','file','TransactionId')
-    list_filter= ['Name','WhatsappNo','TransactionId']
+    list_filter= ['Name','OrderStatus','TransactionId']
 # Register your models here.
 admin.site.register(RegisterUsers,AdminRegister)
 admin.site.register(Orders,AdminOrder)

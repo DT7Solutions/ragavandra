@@ -119,10 +119,22 @@
             var selectElement = document.getElementById('courier');
             var selectedOption = selectElement.options[selectElement.selectedIndex].value;
             if (selectedOption) {
-              window.location.href = selectedOption;
+
+              // window.location.href = selectedOption ;
+              window.open(selectedOption, "_blank");
+             
             }
           }
           </script>
+          <!-- <script>
+            function trackOrder() {
+                var selectElement = document.getElementById("courier");
+                var selectedValue = selectElement.value;
+                if (selectedValue) {
+                    window.open(selectedValue, "_blank");
+                }
+            }
+        </script> -->
     
 </body>
 </html>
